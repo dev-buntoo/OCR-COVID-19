@@ -13,3 +13,5 @@
 
 	<!-- MAIN JS -->
 	<script src="{{ asset('general/js/main.js') }}"></script>
+	<!-- Modernizr JS -->
+	<script src="{{ asset('general/js/modernizr-2.6.2.min.js') }}"></script>

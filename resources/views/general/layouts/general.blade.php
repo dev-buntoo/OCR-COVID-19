@@ -27,7 +27,7 @@
 						</a></h1>
 					<nav role="navigation" class="navbar-expand-md">
 						<ul class="text-uppercase">
-							<li><a href="about.html">About</a></li>
+							<li><a href="{{ route('about')}}">About</a></li>
 							<li><a href="work.html">Prevention</a></li>
 							<li><a href="services.html">Symptoms</a></li>
 							<li><a href="contact.html">Contact</a></li>
