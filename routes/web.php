@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Route::get('/', [App\Http\Controllers\General\HomeController::class, 'index'])->name('home');
-Route::get('/about', [App\Http\Controllers\General\AboutController::class, 'index'])->name('about');
+Route::name('general.')->group(function(){
+    Route::get('/', [App\Http\Controllers\General\HomeController::class, 'index'])->name('home');
+    Route::get('/detail', [App\Http\Controllers\General\DetailController::class, 'index'])->name('detail');
+});
