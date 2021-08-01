@@ -12,6 +12,7 @@ class User extends Authenticatable
     use HasFactory, Notifiable;
 
     protected $id = 'user_id';
+    protected $primaryKey = 'user_id';
     /**
      * The attributes that are mass assignable.
      *
@@ -44,4 +45,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Relation with the Admin
+     *
+     * return relation
+     */
+    public function admin()
+    {
+        return $this->hasOne(Admin::class,'user_id', 'user_id');
+    }
 }

@@ -30,7 +30,7 @@ class AdminSeeder extends Seeder
                 'address' => 'Lahore',
                 'city' => 'Lahore',
                 'state' => 'Punjab',
-                'user_id' => $user->id,
+                'user_id' => $user->user_id,
         ]);
     }
 }

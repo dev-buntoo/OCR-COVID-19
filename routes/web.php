@@ -21,8 +21,21 @@ Auth::routes([
     'register' => false,
 ]);
 
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::name('general.')->group(function(){
     Route::get('/', [App\Http\Controllers\General\HomeController::class, 'index'])->name('home');
     Route::get('/detail', [App\Http\Controllers\General\DetailController::class, 'index'])->name('detail');
+});
+
+
+
+//All authenticated routes
+Route::middleware('auth')->group(function(){
+    Route::prefix('admin/')->name('admin.')->group(function(){
+        Route::get('/', [App\Http\Controllers\Admin\HomeController::class, 'index'])->name('home');
+
+        //citizen crud routes
+
+    });
+
 });
