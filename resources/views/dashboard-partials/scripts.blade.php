@@ -8,7 +8,7 @@
 <script src="{{ asset('dashboard/js/jquery.slimscroll.min.js') }}"></script>
 <script src="{{ asset('dashboard/js/jquery.slicknav.min.js') }}"></script>
 
+@yield('pageScripts')
 <!-- others plugins -->
 <script src="{{ asset('dashboard/js/plugins.js') }}"></script>
 <script src="{{ asset('dashboard/js/scripts.js') }}"></script>
-@yield('pageScripts')

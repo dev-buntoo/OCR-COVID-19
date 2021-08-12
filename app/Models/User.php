@@ -53,6 +53,15 @@ class User extends Authenticatable
      */
     public function admin()
     {
-        return $this->hasOne(Admin::class,'user_id', 'user_id');
+        return $this->hasOne(Admin::class, 'user_id', 'user_id');
+    }
+    /**
+     * Relation with the Admin
+     *
+     * return relation
+     */
+    public function citizen()
+    {
+        return $this->hasOne(Citizen::class, 'user_id', 'user_id');
     }
 }

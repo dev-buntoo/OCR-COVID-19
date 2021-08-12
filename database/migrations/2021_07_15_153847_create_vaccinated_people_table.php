@@ -17,10 +17,12 @@ class CreateVaccinatedPeopleTable extends Migration
             $table->bigIncrements('vaccinated_people_id');
             $table->unsignedBigInteger('citizen_id');
             $table->unsignedBigInteger('vaccination_center_id');
-            $table->unsignedBigInteger('paramedic_staff_id');
-            $table->dateTime('vaccinated_date_time');
-            $table->boolean('any_reaction');
-            $table->string('reaction_detail');
+            $table->unsignedBigInteger('paramedic_staff_id')->nullable();
+            $table->date('vaccination_date');
+            $table->boolean('is_vaccinated')->nullable();
+            $table->time('vaccination_time')->nullable();
+            $table->boolean('any_reaction')->nullable();
+            $table->string('reaction_detail')->nullable();
             $table->timestamps();
 
             $table->foreign('citizen_id')->references('user_id')->on('users');

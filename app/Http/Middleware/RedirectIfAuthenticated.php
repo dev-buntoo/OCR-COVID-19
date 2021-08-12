@@ -28,6 +28,9 @@ class RedirectIfAuthenticated
                     case 1:
                         return redirect()->route('admin.home');
                         break;
+                    case 4:
+                        return redirect()->route('citizen.home');
+                        break;
                 };
             }
         }

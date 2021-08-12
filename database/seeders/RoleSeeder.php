@@ -15,27 +15,21 @@ class RoleSeeder extends Seeder
     public function run()
     {
         //
-        DB::table('roles')->insert(
-            [
-                'role_id' => '1',
-                'name' => 'Admin',
+        DB::table('roles')->insert([
+            'name' => 'admin',
+            'guard_name' => 'web'
+        ]);
+        DB::table('roles')->insert([
+            'name' => 'vaccination-center',
+            'guard_name' => 'web'
+        ]);
+        DB::table('roles')->insert([
+            'name' => 'paramedic',
+            'guard_name' => 'web'
+        ]);
+        DB::table('roles')->insert([
+                'name' => 'citizen',
                 'guard_name' => 'web'
-            ],
-            [
-                'role_id' => '2',
-                'name' => 'Vaccination Center',
-                'guard_name' => 'web'
-            ],
-            [
-                'role_id' => '3',
-                'name' => 'Paramedic',
-                'guard_name' => 'web'
-            ],
-            [
-                'role_id' => '4',
-                'name' => 'Citizen',
-                'guard_name' => 'web'
-            ]
-        );
+            ]);
     }
 }

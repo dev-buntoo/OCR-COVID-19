@@ -18,16 +18,15 @@ class CreateCitizensTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('name');
             $table->enum('marital_status', [1,2,3,4])->comment('1->single, 2->married, 3->widowed, 4->divorced');
-            $table->string('guardian_cnic');
+            $table->string('guardian_cnic')->nullable();
             $table->string('address');
             $table->string('city');
             $table->string('state');
             $table->unsignedBigInteger('family_number_id');
-            $table->string('passcode')->unique();
             $table->enum('added_by', [1,2,3])->comment('1 for admin, 2 for vaccination center and 3 for self registration');
             $table->unsignedBigInteger('added_by_id')->nullable();
+            $table->string('passcode')->unique()->nullable();
             $table->timestamps();
-            $table->boolean('is_vaccinated');
 
             $table->foreign('user_id')->references('user_id')->on('users')->onDelete('cascade');
             $table->foreign('added_by_id')->references('user_id')->on('users');

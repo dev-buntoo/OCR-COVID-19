@@ -30,8 +30,8 @@
                         <ul class="text-uppercase">
                             <li><a href="{{ route('general.detail')}}">Details</a></li>
                             <li><a href="contact.html">Contact</a></li>
-                            <li class="cta"><a href="#">Registor</a></li>
-                            <li class="cta l"><a href="#">login</a></li>
+                            <li class="cta"><a href="{{ route('register') }}">Registor</a></li>
+                            <li class="cta l"><a href="{{ route('login') }}">login</a></li>
                         </ul>
                     </nav>
                 </div>
