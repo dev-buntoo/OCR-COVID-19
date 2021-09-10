@@ -27,6 +27,7 @@
         .login-area {
             background: #C4C4C4;
         }
+
     </style>
 </head>
 
@@ -42,76 +43,83 @@
     <!-- login area start -->
     <div class="login-area">
         <div class="container">
-            <div class="login-box ptb--100">
-                <form method="POST" action="{{ route('login') }}">
-                    @csrf
-                    <div class=" login-form-head">
-                    <h4>Sign In</h4>
-                    {{-- <p></p> --}}
-            </div>
-            <div class="login-form-body">
-                <div class="form-gp">
-                    <label for="exampleInputEmail1">Email address</label>
-                    <input type="email" id="exampleInputEmail1" class="@error('email') is-invalid @enderror"
-                        name="email">
-                    <i class="ti-email"></i>
-                    @error('email')
-                        <div class="text-danger">{{ $message }}</div>
-                    @enderror
-                </div>
-                <div class="form-gp">
-                    <label for="exampleInputPassword1">Password</label>
-                    <input type="password" id="exampleInputPassword1" name="password"
-                        class="@error('password') is-invalid @enderror">
-                    <i class="ti-lock"></i>
-                    @error('password')
-                    <div class="text-danger">{{ $message }}</div>
-                    {{-- <span class="invalid-feedback" role="alert">
-                        <strong></strong>
-                    </span> --}}
-                    @enderror
-                </div>
-                <div class="row mb-4 rmber-area">
-                    <div class="col-6">
-                        <div class="custom-control custom-checkbox mr-sm-2">
-                            <input type="checkbox" class="custom-control-input" type="checkbox" name="remember"
-                                id="remember" {{ old('remember') ? 'checked' : '' }}>
-                            <label class="custom-control-label" for="customControlAutosizing">Remember Me</label>
-                        </div>
+            <div class="row">
+                <div class="col-md-6 offset-md-3">
+                    <div class="login-box ptb--100">
+                        <form method="POST" action="{{ route('login') }}">
+                            @csrf
+                            <div class=" login-form-head">
+                                <h4>Sign In</h4>
+                                {{-- <p></p> --}}
+                            </div>
+                            <div class="login-form-body">
+                                <div class="form-gp">
+                                    <label for="exampleInputEmail1">Email address</label>
+                                    <input type="email" id="exampleInputEmail1"
+                                        class="@error('email') is-invalid @enderror" name="email">
+                                    <i class="ti-email"></i>
+                                    @error('email')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="form-gp">
+                                    <label for="exampleInputPassword1">Password</label>
+                                    <input type="password" id="exampleInputPassword1" name="password"
+                                        class="@error('password') is-invalid @enderror">
+                                    <i class="ti-lock"></i>
+                                    @error('password')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        {{-- <span class="invalid-feedback" role="alert">
+                                <strong></strong>
+                            </span> --}}
+                                    @enderror
+                                </div>
+                                <div class="row mb-4 rmber-area">
+                                    <div class="col-6">
+                                        <div class="custom-control custom-checkbox mr-sm-2">
+                                            <input type="checkbox" class="custom-control-input" type="checkbox"
+                                                name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                                            <label class="custom-control-label" for="customControlAutosizing">Remember
+                                                Me</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 text-right">
+                                        @if (Route::has('password.request'))
+                                            <a href="{{ route('password.request') }}">
+                                                {{ __('Forgot Your Password?') }}
+                                            </a>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="submit-btn-area">
+                                    <button id="form_submit" type="submit">Submit <i
+                                            class="ti-arrow-right"></i></button>
+                                </div>
+                                <div class="form-footer text-center mt-5">
+                                    <p class="text-muted">Haven't Registored for Vaccination? <a
+                                            href="{{ route('register') }}">Registor Now</a></p>
+                                </div>
+                            </div>
                     </div>
-                    <div class="col-6 text-right">
-                        @if (Route::has('password.request'))
-                        <a href="{{ route('password.request') }}">
-                            {{ __('Forgot Your Password?') }}
-                        </a>
-                        @endif
-                    </div>
                 </div>
-                <div class="submit-btn-area">
-                    <button id="form_submit" type="submit">Submit <i class="ti-arrow-right"></i></button>
-                </div>
-                <div class="form-footer text-center mt-5">
-                    <p class="text-muted">Haven't Registored for Vaccination? <a href="{{ route('register') }}">Registor Now</a></p>
-                </div>
+                </form>
             </div>
-            </form>
         </div>
-    </div>
-    <!-- login area end -->
+        <!-- login area end -->
 
-    <!-- jquery latest version -->
-    <script src="{{ asset('dashboard/js/vendor/jquery-2.2.4.min.js') }}"></script>
-    <!-- bootstrap 4 js -->
-    <script src="{{ asset('dashboard/js/popper.min.js') }}"></script>
-    <script src="{{ asset('dashboard/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('dashboard/js/owl.carousel.min.js') }}"></script>
-    <script src="{{ asset('dashboard/js/metisMenu.min.js') }}"></script>
-    <script src="{{ asset('dashboard/js/jquery.slimscroll.min.js') }}"></script>
-    <script src="{{ asset('dashboard/js/jquery.slicknav.min.js') }}"></script>
+        <!-- jquery latest version -->
+        <script src="{{ asset('dashboard/js/vendor/jquery-2.2.4.min.js') }}"></script>
+        <!-- bootstrap 4 js -->
+        <script src="{{ asset('dashboard/js/popper.min.js') }}"></script>
+        <script src="{{ asset('dashboard/js/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('dashboard/js/owl.carousel.min.js') }}"></script>
+        <script src="{{ asset('dashboard/js/metisMenu.min.js') }}"></script>
+        <script src="{{ asset('dashboard/js/jquery.slimscroll.min.js') }}"></script>
+        <script src="{{ asset('dashboard/js/jquery.slicknav.min.js') }}"></script>
 
-    <!-- others plugins -->
-    <script src="{{ asset('dashboard/js/plugins.js') }}"></script>
-    <script src="{{ asset('dashboard/js/scripts.js') }}"></script>
+        <!-- others plugins -->
+        <script src="{{ asset('dashboard/js/plugins.js') }}"></script>
+        <script src="{{ asset('dashboard/js/scripts.js') }}"></script>
 </body>
 
 </html>
