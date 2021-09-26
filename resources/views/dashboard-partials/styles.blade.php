@@ -11,5 +11,7 @@
 <link rel="stylesheet" href="{{ asset('dashboard/css/default-css.css') }}">
 <link rel="stylesheet" href="{{ asset('dashboard/css/styles.css') }}">
 <link rel="stylesheet" href="{{ asset('dashboard/css/responsive.css') }}">
+{{-- custom css --}}
+<link rel="stylesheet" href="{{ asset('dashboard/css/custom.css') }}">
 <!-- modernizr css -->
 <script src="{{ asset('dashboard/js/vendor/modernizr-2.8.3.min.js') }}"></script>

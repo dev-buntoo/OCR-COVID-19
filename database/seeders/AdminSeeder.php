@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class AdminSeeder extends Seeder
 {
@@ -22,15 +23,16 @@ class AdminSeeder extends Seeder
             'cnic' => '1234567898765',
             'gender' => '1',
             'date_of_birth' => '1999-11-15',
-            'password' => Hash::make('11223344'),
-            'role_id' => 1,
+            'password' => Hash::make('11223344')
         ]);
         $admin = DB::table('admins')->insert([
-                'name' => 'ADMIN',
-                'address' => 'Lahore',
-                'city' => 'Lahore',
-                'state' => 'Punjab',
-                'user_id' => $user->user_id,
+            'name' => 'ADMIN',
+            'address' => 'Lahore',
+            'city' => 'Lahore',
+            'state' => 'Punjab',
+            'user_id' => $user->user_id,
         ]);
+        // dd(Role::where('name','admin')->first());
+        $user->assignRole(Role::where('name','admin')->first());
     }
 }

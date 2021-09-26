@@ -15,7 +15,7 @@
                     <a href="{{ route('admin.citizens.index') }}"><i class="ti-user"></i> <span>Citizens</span></a>
                 </li>
                 <li class="{{ (request()->is('admin/cities*')) ? 'active' : '' }}">
-                    <a href="{{ route('admin.citizens.index') }}"><i class="ti-user"></i> <span>Cities</span></a>
+                    <a href="{{ route('admin.cities.index') }}"><i class="ti-user"></i> <span>Cities</span></a>
                 </li>
             </ul>
         </nav>

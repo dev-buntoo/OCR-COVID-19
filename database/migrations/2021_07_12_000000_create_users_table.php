@@ -21,11 +21,9 @@ class CreateUsersTable extends Migration
             $table->enum('gender', [1,2,3])->comment('1 for male, 2 for female and 3 for other');
             $table->date('date_of_birth');
             $table->string('password');
-            $table->unsignedBigInteger('role_id');
             $table->softDeletes();
             $table->timestamps();
 
-            $table->foreign('role_id')->references('role_id')->on('roles');
         });
     }
 

@@ -31,12 +31,10 @@ class LoginController extends Controller
     // protected $redirectTo = RouteServiceProvider::HOME;
     public function redirectTo()
     {
-        switch(Auth::user()->role_id){
-            case 1:
-                return route('admin.home');
-                break;
-
-        };
+        if(Auth::user()->hasRole('admin')){
+            return redirect()->route('admin.home');
+        }
+        dd('authenticted');
     }
 
     /**
@@ -57,7 +55,7 @@ class LoginController extends Controller
      */
     protected function authenticated(Request $request, $user)
     {
-        if(Auth::user()->role_id == 1){
+        if(Auth::user()->hasRole('admin')){
             return redirect()->route('admin.home');
         }
         dd('authenticted');

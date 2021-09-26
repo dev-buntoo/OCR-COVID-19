@@ -33,7 +33,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/', [App\Http\Controllers\Admin\HomeController::class, 'index'])->name('home');
 
         //citizen crud routes
-        Route::resource('citizens', App\Http\Controllers\Admin\CitizenController::class)->except('create');
-        Route::resource('cities', App\Http\Controllers\Admin\CitizenController::class)->except('create');
+        Route::resource('citizens', App\Http\Controllers\Admin\CitizenController::class)->except(['create', 'show']);
+        Route::resource('cities', App\Http\Controllers\Admin\CityController::class)->except(['create', 'show']);
+
     });
 });
