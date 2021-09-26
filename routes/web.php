@@ -35,6 +35,6 @@ Route::middleware('auth')->group(function () {
         //citizen crud routes
         Route::resource('citizens', App\Http\Controllers\Admin\CitizenController::class)->except(['create', 'show']);
         Route::resource('cities', App\Http\Controllers\Admin\CityController::class)->except(['create', 'show']);
-        Route::resource('vaccination-centers', App\Http\Controllers\Admin\VaccinationCenterController::class, ['as' => 'vaccination_centers'])->except(['create', 'show']);
+        Route::resource('vaccination_centers', App\Http\Controllers\Admin\VaccinationCenterController::class)->except(['create', 'show']);
     });
 });

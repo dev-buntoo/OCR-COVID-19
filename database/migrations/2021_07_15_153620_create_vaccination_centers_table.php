@@ -15,16 +15,12 @@ class CreateVaccinationCentersTable extends Migration
     {
         Schema::create('vaccination_centers', function (Blueprint $table) {
             $table->bigIncrements('vaccination_center_id');
-            $table->unsignedBigInteger('user_id');
             $table->string('name');
             $table->string('address');
-            $table->string('city');
-            $table->string('state');
-            $table->unsignedBigInteger('added_by_id')->nullable();
+            $table->unsignedBigInteger('city_id');
             $table->timestamps();
 
-            $table->foreign('user_id')->references('user_id')->on('users')->onDelete('cascade');
-            $table->foreign('added_by_id')->references('user_id')->on('users');
+            $table->foreign('city_id')->references('city_id')->on('cities')->onDelete('cascade');
         });
     }
 

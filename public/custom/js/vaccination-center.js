@@ -6,11 +6,11 @@ const delCity = (id) => {
 }
 $(window).on('load', function () {
     // cities datatable
-    $('#citiesTable').DataTable({
+    $('#vaccinationCentersTable').DataTable({
         processing: true,
         serverSide: true,
         ajax: {
-            url: "/admin/cities"
+            url: "/admin/vaccination_centers"
         },
         columns: [{
                 data: "name",
@@ -26,14 +26,14 @@ $(window).on('load', function () {
     });
 
     // add city
-    $(document).on('submit', '#addCity', function (event) {
+    $(document).on('submit', '#addCenter', function (event) {
         event.preventDefault();
         $('input[type=submit]', this).attr('disabled', 'disabled');
-        $('#addCity').bind('submit', function (e) {
+        $('#addCenter').bind('submit', function (e) {
             e.preventDefault();
         });
         const data = $(this).serialize();
-        const route = "/admin/cities"
+        const route = "/admin/vaccination_centers"
         $.ajax({
             url: route,
             method: "POST",
@@ -41,13 +41,13 @@ $(window).on('load', function () {
             dataType: 'json',
             success: function (data) {
                 if (data.success) {
-                    $("#addCityModal").modal('hide');
-                    $("#addCity")[0].reset();
+                    $("#addCenterModal").modal('hide');
+                    $("#addCenter")[0].reset();
                     html =
                         '<div class="alert alert-success"><a href="#" class="close" data-dismiss="alert" aria-label="close">×</a><p>' +
                         data.message + '</p></div>';
                     $("#response").html(html);
-                    $('#citiesTable').DataTable().ajax.reload();
+                    $('#vaccinationCentersTable').DataTable().ajax.reload();
                 }
             },
             error: function (jqXHR, exception) {
@@ -57,13 +57,13 @@ $(window).on('load', function () {
                     )
                     // converts javscript object to array => multi-dimensional
                     errors_array.forEach(element => {
-                        $('#addCity [name="' + element[0] + '"]')
+                        $('#addCenter [name="' + element[0] + '"]')
                             .addClass('is-invalid')
                         let error = '<span class="invalid-feedback">'
                         error += '<strong>' + element[1][0].replace('', '') +
                             '</strong>'
                         error += '</span>'
-                        $('#addCity [name="' + element[0] + '"]').parent()
+                        $('#addCenter [name="' + element[0] + '"]').parent()
                             .append(error)
                     })
                 } else {
@@ -77,7 +77,7 @@ $(window).on('load', function () {
             }
         });
         $('input[type=submit]', this).removeAttr('disabled', 'disabled');
-        $('#addCity').unbind('submit');
+        $('#addCenter').unbind('submit');
     });
     // edit city
     $(document).on('click', '.edit-city', function (event) {

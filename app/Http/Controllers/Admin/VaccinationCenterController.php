@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\City;
 use App\Models\VaccinationCenter;
+use Exception;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -25,7 +27,8 @@ class VaccinationCenterController extends Controller
                 })->rawColumns(['action'])
                 ->make(true);
         }
-        return view('admin.pages.cites');
+        $cities = City::latest()->get();
+        return view('admin.pages.vaccination-centers', ['cities' => $cities]);
     }
 
     /**
@@ -46,13 +49,16 @@ class VaccinationCenterController extends Controller
      */
     public function store(Request $request)
     {
+        // return($request);
         $request->validate([
-            'name' => 'required|string',
-            'city' => 'required|exists:cities,city_id'
+            'name' => 'required|string|max:250',
+            'city' => 'required|exists:cities,city_id',
+            'address'=>'required|string|max:250'
         ]);
         try {
             $center = new VaccinationCenter();
             $center->name = $request->name;
+            $center->address = $request->address;
             $center->save();
             return response()->json([
                 'success' => true,
@@ -65,7 +71,6 @@ class VaccinationCenterController extends Controller
                 // 'exception' => $exception->getMessage()
             ], 500);
         }
-
     }
 
     /**

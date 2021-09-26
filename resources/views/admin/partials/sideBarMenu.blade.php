@@ -17,6 +17,9 @@
                 <li class="{{ (request()->is('admin/cities*')) ? 'active' : '' }}">
                     <a href="{{ route('admin.cities.index') }}"><i class="ti-user"></i> <span>Cities</span></a>
                 </li>
+                <li class="{{ (request()->is('admin/vaccination_centers*')) ? 'active' : '' }}">
+                    <a href="{{ route('admin.vaccination_centers.index') }}"><i class="ti-building"></i> <span>Vaccination Center</span></a>
+                </li>
             </ul>
         </nav>
     </div>
