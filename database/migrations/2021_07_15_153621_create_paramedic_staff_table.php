@@ -23,6 +23,7 @@ class CreateParamedicStaffTable extends Migration
             $table->string('state');
             $table->enum('added_by', [1,2,3])->comment('1 for admin, 2 for vaccination center and 3 for self registration');
             $table->unsignedBigInteger('added_by_id')->nullable();
+            $table->softDeletes();
             $table->timestamps();
 
             $table->foreign('user_id')->references('user_id')->on('users')->onDelete('cascade');

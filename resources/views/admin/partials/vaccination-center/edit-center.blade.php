@@ -14,8 +14,20 @@
                                 <div class=" card-body">
                                     <div class="form-group">
                                         <label for="name">Enter Name *</label>
-                                        <input type="text" name="name" id="name" value="{{ $vaccinationCenter->name }}"
-                                            class="form-control alphabets" required>
+                                        <input type="text" name="name" id="name"
+                                            value="{{ $vaccinationCenter->name }}" class="form-control alphabets"
+                                            required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="name">Enter Email *</label>
+                                        <input type="eamil" name="email" id="email"
+                                            value="{{ $vaccinationCenter->user->email }}" class="form-control"
+                                            required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="name">Enter Password </label>
+                                        <input type="password" name="password" id="password" value=""
+                                            class="form-control">
                                     </div>
                                     <div class="form-group">
                                         <label for="name">Select City *</label>

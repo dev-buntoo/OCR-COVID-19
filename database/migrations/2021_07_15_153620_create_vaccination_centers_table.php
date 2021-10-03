@@ -15,6 +15,7 @@ class CreateVaccinationCentersTable extends Migration
     {
         Schema::create('vaccination_centers', function (Blueprint $table) {
             $table->bigIncrements('vaccination_center_id');
+            $table->unsignedBigInteger('user_id');
             $table->string('name');
             $table->string('address');
             $table->unsignedBigInteger('city_id');
@@ -22,6 +23,7 @@ class CreateVaccinationCentersTable extends Migration
             $table->timestamps();
 
             $table->foreign('city_id')->references('city_id')->on('cities')->onDelete('cascade');
+            $table->foreign('user_id')->references('user_id')->on('users')->onDelete('cascade');
         });
     }
 
