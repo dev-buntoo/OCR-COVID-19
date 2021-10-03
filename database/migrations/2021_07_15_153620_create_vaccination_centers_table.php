@@ -18,6 +18,7 @@ class CreateVaccinationCentersTable extends Migration
             $table->string('name');
             $table->string('address');
             $table->unsignedBigInteger('city_id');
+            $table->softDeletes();
             $table->timestamps();
 
             $table->foreign('city_id')->references('city_id')->on('cities')->onDelete('cascade');

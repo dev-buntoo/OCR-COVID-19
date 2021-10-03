@@ -90,7 +90,7 @@ class CityController extends Controller
             return redirect()->route('login');
         }
         try {
-            $htmlResponse = view('admin.partials.city.edit-city', ['city' => $city])->render();
+            $htmlResponse = view("admin.partials.city.edit-city", ['city' => $city])->render();
             return response()->json([
                 'success' => true,
                 'htmlResponse' => $htmlResponse,
@@ -99,7 +99,7 @@ class CityController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'Something went wrong while processing your request',
-                // 'exception' => $exception->getMessage()
+                'exception' => $exception->getMessage()
             ], 500);
         }
     }

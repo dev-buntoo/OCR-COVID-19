@@ -1,11 +1,11 @@
-// dell city initial
+// dell center initial
 let adminRequireId = 0;
-const delCity = (id) => {
+const delCenter = (id) => {
     adminRequireId = id;
-    $('#delCityModal').modal('show');
+    $('#delCenterModal').modal('show');
 }
 $(window).on('load', function () {
-    // cities datatable
+    // datatable
     $('#vaccinationCentersTable').DataTable({
         processing: true,
         serverSide: true,
@@ -16,6 +16,14 @@ $(window).on('load', function () {
                 data: "name",
                 name: "name",
                 orderable: false
+            }, {
+                data: "city_id",
+                name: "city_id",
+                orderable: false
+            }, {
+                data: "address",
+                name: "address",
+                orderable: false
             },
             {
                 data: "action",
@@ -25,7 +33,7 @@ $(window).on('load', function () {
         ]
     });
 
-    // add city
+    // add center
     $(document).on('submit', '#addCenter', function (event) {
         event.preventDefault();
         $('input[type=submit]', this).attr('disabled', 'disabled');
@@ -79,12 +87,12 @@ $(window).on('load', function () {
         $('input[type=submit]', this).removeAttr('disabled', 'disabled');
         $('#addCenter').unbind('submit');
     });
-    // edit city
-    $(document).on('click', '.edit-city', function (event) {
+    // edit center
+    $(document).on('click', '.edit-center', function (event) {
         event.preventDefault();
-        $('.edit-city').attr('disabled', true);
-        const id = $(this).data('city-id');
-        const route = "/admin/cities/" + id + '/edit';
+        $('.edit-center').attr('disabled', true);
+        const id = $(this).data('center-id');
+        const route = "/admin/vaccination_centers/" + id + '/edit';
         $.ajax({
             url: route,
             method: "GET",
@@ -92,7 +100,7 @@ $(window).on('load', function () {
             success: function (data) {
                 if (data.success) {
                     $("#editResponse").html(data.htmlResponse);
-                    $("#updateCityModal").modal('show');
+                    $("#updateCenterModal").modal('show');
                 }
             },
             error: function (jqXHR, exception) {
@@ -105,18 +113,18 @@ $(window).on('load', function () {
             }
         });
         $('input[type=submit]', this).removeAttr('disabled', 'disabled');
-        $('#addCity').unbind('submit');
+        $('#addCenter').unbind('submit');
     });
-    // Update city
-    $(document).on('submit', '#updateCity', function (event) {
+    // Update center
+    $(document).on('submit', '#updateCenter', function (event) {
         event.preventDefault();
         $('input[type=submit]', this).attr('disabled', 'disabled');
-        $('#updateCity').bind('submit', function (e) {
+        $('#updateCenter').bind('submit', function (e) {
             e.preventDefault();
         });
-        const id = $(this).attr('city');
+        const id = $(this).attr('center');
         const data = $(this).serialize();
-        const route = "/admin/cities/" + id;
+        const route = "/admin/vaccination_centers/" + id;
         $.ajax({
             url: route,
             method: "PATCH",
@@ -124,13 +132,13 @@ $(window).on('load', function () {
             dataType: 'json',
             success: function (data) {
                 if (data.success) {
-                    $("#updateCityModal").modal('hide');
+                    $("#updateCenterModal").modal('hide');
                     $('.modal-backdrop').hide();
                     html =
                         '<div class="alert alert-success"><a href="#" class="close" data-dismiss="alert" aria-label="close">×</a><p>' +
                         data.message + '</p></div>';
                     $("#response").html(html);
-                    $('#citiesTable').DataTable().ajax.reload();
+                    $('#vaccinationCentersTable').DataTable().ajax.reload();
                     $("#editResponse").html('');
                 }
             },
@@ -141,13 +149,13 @@ $(window).on('load', function () {
                     )
                     // converts javscript object to array => multi-dimensional
                     errors_array.forEach(element => {
-                        $('#updateCity [name="' + element[0] + '"]')
+                        $('#updateCenter [name="' + element[0] + '"]')
                             .addClass('is-invalid')
                         let error = '<span class="invalid-feedback">'
                         error += '<strong>' + element[1][0].replace('', '') +
                             '</strong>'
                         error += '</span>'
-                        $('#updateCity [name="' + element[0] + '"]').parent()
+                        $('#updateCenter [name="' + element[0] + '"]').parent()
                             .append(error)
                     })
                 } else {
@@ -160,14 +168,14 @@ $(window).on('load', function () {
             }
         });
         $('input[type=submit]', this).removeAttr('disabled', 'disabled');
-        $('#updateCity').unbind('submit');
+        $('#updateCenter').unbind('submit');
     });
 
-    // del city
+    // del center
     $(document).on('click', '#confirmDelete', function (event) {
         event.preventDefault();
         $('#confirmDelete').attr('disabled', true);
-        const route = "/admin/cities/" + adminRequireId;
+        const route = "/admin/vaccination_centers/" + adminRequireId;
         $.ajaxSetup({
             headers: {
                 'X_CSRF_TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -179,7 +187,7 @@ $(window).on('load', function () {
             dataType: 'json',
             success: function (data) {
                 if (data.success) {
-                    $("#delCityModal").modal('hide');
+                    $("#delCenterModal").modal('hide');
                     html =
                         '<div class="alert alert-success"><a href="#" class="close" data-dismiss="alert" aria-label="close">×</a><p>' +
                         data.message + '</p></div>';
@@ -187,18 +195,18 @@ $(window).on('load', function () {
                 }
             },
             error: function (jqXHR, exception) {
-                $("#delCityModal").modal('hide');
+                $("#delCenterModal").modal('hide');
                 let error = jqXHR.responseJSON.message
                 html =
                     '<div class="alert alert-danger"><a href="#" class="close" data-dismiss="alert" aria-label="close">×</a><p>' +
                     error + '</p></div>';
-                $('#citiesTable').DataTable().ajax.reload();
+                $('#vaccinationCentersTable').DataTable().ajax.reload();
 
                 $("#response").html(html);
             }
         });
         $('#confirmDelete').attr('disabled', false);
-        $('#citiesTable').DataTable().ajax.reload();
+        $('#vaccinationCentersTable').DataTable().ajax.reload();
     });
     //validating Alpabets
     $(document).on('keydown', '.alphabets', function (e) {

@@ -37,6 +37,8 @@
                             <thead class="bg-light text-capitalize">
                                 <tr>
                                     <th>Name</th>
+                                    <th>City</th>
+                                    <th>Address</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -94,8 +96,8 @@
             </div>
         </div>
     </div>
-    {{-- Dilete City Modal --}}
-    <div class="modal fade" id="delCityModal">
+    {{-- Dilete center Modal --}}
+    <div class="modal fade" id="delCenterModal">
         <div class=" modal-dialog bg-danger">
             <div class="modal-content panel-warning">
                 <div class="modal-header panel-heading bg-danger">

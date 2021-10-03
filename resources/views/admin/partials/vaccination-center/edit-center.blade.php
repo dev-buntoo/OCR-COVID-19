@@ -1,12 +1,12 @@
     {{-- Add Center Form Modal --}}
-    <div class="modal fade" id="editCenterModal">
+    <div class="modal fade" id="updateCenterModal">
         <div class=" modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Edit Vaccination Center</h5>
                     <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
                 </div>
-                <form id="editCenter">
+                <form id="updateCenter" center="{{ $vaccinationCenter->vaccination_center_id }}">
                     <div class="modal-body p-3">
                         @csrf
                         <div class="form-main-section">

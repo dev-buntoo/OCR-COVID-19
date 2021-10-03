@@ -22,7 +22,7 @@ class VaccinationCenterController extends Controller
             $centers = VaccinationCenter::latest();
             return DataTables::of($centers)
                 ->addColumn('action', function ($data) {
-                    $action = '<a href="javascript:void(0)" data-city-id="' . $data->vaccination_center_id . '" class="fa fa-pencil m-2 btn-link edit-city" role="button"></a><a href="javascript:void(0)"onclick="delCity(' . $data->vaccination_center_id . ')" class="fa fa-trash m-2"></a>';
+                    $action = '<a href="javascript:void(0)" data-center-id="' . $data->vaccination_center_id . '" class="fa fa-pencil m-2 btn-link edit-center" role="button"></a><a href="javascript:void(0)"onclick="delCenter(' . $data->vaccination_center_id . ')" class="fa fa-trash m-2"></a>';
                     return $action;
                 })->rawColumns(['action'])
                 ->make(true);
@@ -53,22 +53,23 @@ class VaccinationCenterController extends Controller
         $request->validate([
             'name' => 'required|string|max:250',
             'city' => 'required|exists:cities,city_id',
-            'address'=>'required|string|max:250'
+            'address' => 'required|string|max:250'
         ]);
         try {
             $center = new VaccinationCenter();
             $center->name = $request->name;
             $center->address = $request->address;
+            $center->city_id = $request->city;
             $center->save();
             return response()->json([
                 'success' => true,
-                'message' => 'City Added Succesfuly',
+                'message' => 'Vaccination Center Added Succesfuly',
             ], 200);
         } catch (Exception $exception) {
             return response()->json([
                 'success' => false,
-                'message' => 'City Adding Failed',
-                // 'exception' => $exception->getMessage()
+                'message' => 'Vaccination Center Adding Failed',
+                'exception' => $exception->getMessage()
             ], 500);
         }
     }
@@ -92,7 +93,23 @@ class VaccinationCenterController extends Controller
      */
     public function edit(VaccinationCenter $vaccinationCenter)
     {
-        //
+        if (!request()->ajax()) {
+            return redirect()->route('login');
+        }
+        try {
+            $cities = City::latest()->get();
+            $htmlResponse = view('admin.partials.vaccination-center.edit-center', ['vaccinationCenter' => $vaccinationCenter, 'cities' => $cities])->render();
+            return response()->json([
+                'success' => true,
+                'htmlResponse' => $htmlResponse,
+            ], 200);
+        } catch (Exception $exception) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Something went wrong while processing your request',
+                'exception' => $exception->getMessage()
+            ], 500);
+        }
     }
 
     /**
@@ -104,7 +121,27 @@ class VaccinationCenterController extends Controller
      */
     public function update(Request $request, VaccinationCenter $vaccinationCenter)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:250',
+            'city' => 'required|exists:cities,city_id',
+            'address' => 'required|string|max:250'
+        ]);
+        try {
+            $vaccinationCenter->name = $request->name;
+            $vaccinationCenter->address = $request->address;
+            $vaccinationCenter->city_id = $request->city;
+            $vaccinationCenter->save();
+            return response()->json([
+                'success' => true,
+                'message' => 'Vaccination Center Updated Succesfuly',
+            ], 200);
+        } catch (Exception $exception) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Vaccination Center Updating Failed',
+                'exception' => $exception->getMessage()
+            ], 500);
+        }
     }
 
     /**
@@ -115,6 +152,18 @@ class VaccinationCenterController extends Controller
      */
     public function destroy(VaccinationCenter $vaccinationCenter)
     {
-        //
+        try {
+            $vaccinationCenter->delete();
+            return response()->json([
+                'success' => true,
+                'message' => 'Vaccination Center Removed Succesfuly',
+            ], 200);
+        } catch (Exception $exception) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Vaccination Center Removing Failed',
+                'exception' => $exception->getMessage()
+            ], 500);
+        }
     }
 }

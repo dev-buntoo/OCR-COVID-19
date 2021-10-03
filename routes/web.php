@@ -36,5 +36,6 @@ Route::middleware('auth')->group(function () {
         Route::resource('citizens', App\Http\Controllers\Admin\CitizenController::class)->except(['create', 'show']);
         Route::resource('cities', App\Http\Controllers\Admin\CityController::class)->except(['create', 'show']);
         Route::resource('vaccination_centers', App\Http\Controllers\Admin\VaccinationCenterController::class)->except(['create', 'show']);
+        Route::resource('paramedic_staff', App\Http\Controllers\Admin\ParamedicStaffController::class)->except(['create', 'show']);
     });
 });
