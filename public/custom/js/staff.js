@@ -1,31 +1,39 @@
-// dell center initial
+// dell staff initial
 let adminRequireId = 0;
-const delCenter = (id) => {
+const delStaff = (id) => {
     adminRequireId = id;
-    $('#delCenterModal').modal('show');
+    $('#delStaffModal').modal('show');
 }
 $(window).on('load', function () {
     // datatable
-    $('#vaccinationCentersTable').DataTable({
+    $('#staffTable').DataTable({
         processing: true,
         serverSide: true,
         ajax: {
-            url: "/admin/vaccination_centers"
+            url: "/admin/paramedic_staff"
         },
         columns: [{
-                data: 'vaccination_center.name',
+                data: "name",
                 name: "name",
                 orderable: false
             }, {
-                data: 'email',
+                data: "phone",
+                name: "phone",
+                orderable: false
+            }, {
+                data: "email",
                 name: "email",
                 orderable: false
             }, {
-                data: 'vaccination_center.city.name',
+                data: "dob",
+                name: "dob",
+                orderable: false
+            }, {
+                data: "city",
                 name: "city",
                 orderable: false
             }, {
-                data: 'vaccination_center.address',
+                data: "address",
                 name: "address",
                 orderable: false
             },
@@ -37,15 +45,15 @@ $(window).on('load', function () {
         ]
     });
 
-    // add center
-    $(document).on('submit', '#addCenter', function (event) {
+    // add staff
+    $(document).on('submit', '#addStaff', function (event) {
         event.preventDefault();
         $('input[type=submit]', this).attr('disabled', 'disabled');
-        $('#addCenter').bind('submit', function (e) {
+        $('#addStaff').bind('submit', function (e) {
             e.preventDefault();
         });
         const data = $(this).serialize();
-        const route = "/admin/vaccination_centers"
+        const route = "/admin/paramedic_staff"
         $.ajax({
             url: route,
             method: "POST",
@@ -53,13 +61,13 @@ $(window).on('load', function () {
             dataType: 'json',
             success: function (data) {
                 if (data.success) {
-                    $("#addCenterModal").modal('hide');
-                    $("#addCenter")[0].reset();
+                    $("#addStaffModal").modal('hide');
+                    $("#addStaff")[0].reset();
                     html =
                         '<div class="alert alert-success"><a href="#" class="close" data-dismiss="alert" aria-label="close">×</a><p>' +
                         data.message + '</p></div>';
                     $("#response").html(html);
-                    $('#vaccinationCentersTable').DataTable().ajax.reload();
+                    $('#staffTable').DataTable().ajax.reload();
                 }
             },
             error: function (jqXHR, exception) {
@@ -69,13 +77,13 @@ $(window).on('load', function () {
                     )
                     // converts javscript object to array => multi-dimensional
                     errors_array.forEach(element => {
-                        $('#addCenter [name="' + element[0] + '"]')
+                        $('#addStaff [name="' + element[0] + '"]')
                             .addClass('is-invalid')
                         let error = '<span class="invalid-feedback">'
                         error += '<strong>' + element[1][0].replace('', '') +
                             '</strong>'
                         error += '</span>'
-                        $('#addCenter [name="' + element[0] + '"]').parent()
+                        $('#addStaff[name="' + element[0] + '"]').parent()
                             .append(error)
                     })
                 } else {
@@ -89,14 +97,14 @@ $(window).on('load', function () {
             }
         });
         $('input[type=submit]', this).removeAttr('disabled', 'disabled');
-        $('#addCenter').unbind('submit');
+        $('#addStaff').unbind('submit');
     });
-    // edit center
-    $(document).on('click', '.edit-center', function (event) {
+    // edit staffs
+    $(document).on('click', '.edit-staff', function (event) {
         event.preventDefault();
-        $('.edit-center').attr('disabled', true);
-        const id = $(this).data('center-id');
-        const route = "/admin/vaccination_centers/" + id + '/edit';
+        $('.edit-staff').attr('disabled', true);
+        const id = $(this).data('staff-id');
+        const route = "/admin/paramedic_staff/" + id + '/edit';
         $.ajax({
             url: route,
             method: "GET",
@@ -104,7 +112,7 @@ $(window).on('load', function () {
             success: function (data) {
                 if (data.success) {
                     $("#editResponse").html(data.htmlResponse);
-                    $("#updateCenterModal").modal('show');
+                    $("#updateStaffModal").modal('show');
                 }
             },
             error: function (jqXHR, exception) {
@@ -117,18 +125,18 @@ $(window).on('load', function () {
             }
         });
         $('input[type=submit]', this).removeAttr('disabled', 'disabled');
-        $('#addCenter').unbind('submit');
+        $('#addStaff').unbind('submit');
     });
-    // Update center
-    $(document).on('submit', '#updateCenter', function (event) {
+    // Update staff
+    $(document).on('submit', '#updateStaff', function (event) {
         event.preventDefault();
         $('input[type=submit]', this).attr('disabled', 'disabled');
-        $('#updateCenter').bind('submit', function (e) {
+        $('#updateStaff').bind('submit', function (e) {
             e.preventDefault();
         });
-        const id = $(this).attr('center');
+        const id = $(this).attr('staff');
         const data = $(this).serialize();
-        const route = "/admin/vaccination_centers/" + id;
+        const route = "/admin/paramedic_staff/" + id;
         $.ajax({
             url: route,
             method: "PATCH",
@@ -136,13 +144,13 @@ $(window).on('load', function () {
             dataType: 'json',
             success: function (data) {
                 if (data.success) {
-                    $("#updateCenterModal").modal('hide');
+                    $("#updateStaffModal").modal('hide');
                     $('.modal-backdrop').hide();
                     html =
                         '<div class="alert alert-success"><a href="#" class="close" data-dismiss="alert" aria-label="close">×</a><p>' +
                         data.message + '</p></div>';
                     $("#response").html(html);
-                    $('#vaccinationCentersTable').DataTable().ajax.reload();
+                    $('#staffTable').DataTable().ajax.reload();
                     $("#editResponse").html('');
                 }
             },
@@ -153,13 +161,13 @@ $(window).on('load', function () {
                     )
                     // converts javscript object to array => multi-dimensional
                     errors_array.forEach(element => {
-                        $('#updateCenter [name="' + element[0] + '"]')
+                        $('#updateStaff [name="' + element[0] + '"]')
                             .addClass('is-invalid')
                         let error = '<span class="invalid-feedback">'
                         error += '<strong>' + element[1][0].replace('', '') +
                             '</strong>'
                         error += '</span>'
-                        $('#updateCenter [name="' + element[0] + '"]').parent()
+                        $('#updateStaff [name="' + element[0] + '"]').parent()
                             .append(error)
                     })
                 } else {
@@ -172,14 +180,14 @@ $(window).on('load', function () {
             }
         });
         $('input[type=submit]', this).removeAttr('disabled', 'disabled');
-        $('#updateCenter').unbind('submit');
+        $('#updateStaff').unbind('submit');
     });
 
-    // del center
+    // del staff
     $(document).on('click', '#confirmDelete', function (event) {
         event.preventDefault();
         $('#confirmDelete').attr('disabled', true);
-        const route = "/admin/vaccination_centers/" + adminRequireId;
+        const route = "/admin/paramedic_staff/" + adminRequireId;
         $.ajaxSetup({
             headers: {
                 'X_CSRF_TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -191,7 +199,7 @@ $(window).on('load', function () {
             dataType: 'json',
             success: function (data) {
                 if (data.success) {
-                    $("#delCenterModal").modal('hide');
+                    $("#delStaffModal").modal('hide');
                     html =
                         '<div class="alert alert-success"><a href="#" class="close" data-dismiss="alert" aria-label="close">×</a><p>' +
                         data.message + '</p></div>';
@@ -199,27 +207,17 @@ $(window).on('load', function () {
                 }
             },
             error: function (jqXHR, exception) {
-                $("#delCenterModal").modal('hide');
+                $("#delStaffModal").modal('hide');
                 let error = jqXHR.responseJSON.message
                 html =
                     '<div class="alert alert-danger"><a href="#" class="close" data-dismiss="alert" aria-label="close">×</a><p>' +
                     error + '</p></div>';
-                $('#vaccinationCentersTable').DataTable().ajax.reload();
+                $('#staffTable').DataTable().ajax.reload();
 
                 $("#response").html(html);
             }
         });
         $('#confirmDelete').attr('disabled', false);
-        $('#vaccinationCentersTable').DataTable().ajax.reload();
-    });
-    //validating Alpabets
-    $(document).on('keydown', '.alphabets', function (e) {
-        const pattern = /^[a-zA-Z ' \n\r-]+$/;
-        return pattern.test(e.key)
-    });
-    //validating phone_no
-    $(document).on('keydown', '.number', function (e) {
-        const pattern = /^[0-9]$/;
-        return pattern.test(e.key)
+        $('#staffTable').DataTable().ajax.reload();
     });
 });

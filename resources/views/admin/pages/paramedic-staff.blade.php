@@ -33,24 +33,29 @@
                 <div class="card-body">
                     <div id="response"></div>
                     <div class="data-tables">
-                        {{-- <table id="citiesTable" class="text-center">
+                        <table id="staffTable" class="text-center">
                             <thead class="bg-light text-capitalize">
                                 <tr>
                                     <th>Name</th>
+                                    <th>Phone</th>
+                                    <th>Email</th>
+                                    <th>Vaccination Center</th>
+                                    <th>City</th>
+                                    <th>Address</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
 
                             </tbody>
-                        </table> --}}
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    {{-- Add City Form Modal --}}
+    {{-- Add Paramedic Staff Form Modal --}}
     <div class="modal fade" id="addStaffModal">
         <div class=" modal-dialog modal-lg">
             <div class="modal-content">
@@ -58,7 +63,7 @@
                     <h5 class="modal-title">Add Paramedic Staff</h5>
                     <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
                 </div>
-                <form id="addCenter">
+                <form id="addStaff">
                     <div class="modal-body p-3">
                         @csrf
                         <div class="form-main-section">
@@ -83,7 +88,7 @@
                                             <div class="form-group">
                                                 <label for="password">Password *</label>
                                                 <input type="password" name="password" id="password"
-                                                    class="form-control alphabets" required>
+                                                    class="form-control" required>
                                             </div>
                                             <div class="form-group">
                                                 <label for="cnic">CNIC *</label>
@@ -115,22 +120,18 @@
                                                 </select>
                                             </div>
                                             <div class="form-group">
-                                                <label for="name">Email *</label>
-                                                <input type="email" name="email" id="email" class="form-control" required>
+                                                <label for="name">City *</label>
+                                                <input type="text" name="city" id="city" class="form-control alphabets" required>
                                             </div>
                                             <div class="form-group">
-                                                <label for="password">Password *</label>
-                                                <input type="password" name="password" id="password"
+                                                <label for="password">State *</label>
+                                                <input type="text" name="state" id="state"
                                                     class="form-control alphabets" required>
                                             </div>
                                             <div class="form-group">
-                                                <label for="cnic">CNIC *</label>
-                                                <input type="text" name="cnic" id="cnic" class="form-control numeric"
-                                                    required minlength="13" maxlength="13">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="dob">Date Of Birth *</label>
-                                                <input type="date" name="dob" id="dob" class="form-control" required>
+                                                <label for="cnic">Address *</label>
+                                                <textarea name="address" id="address" class="form-control"
+                                                    required minlength="10"></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -152,7 +153,7 @@
         <div class=" modal-dialog bg-danger">
             <div class="modal-content panel-warning">
                 <div class="modal-header panel-heading bg-danger">
-                    <h5 class="modal-title">Delete City</h5>
+                    <h5 class="modal-title">Delete Paramedic Staff</h5>
                     <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
                 </div>
                 <div class="modal-body p-3">
@@ -177,5 +178,6 @@
     <script src="https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>
-    <script src="{{ asset('custom/js/city.js') }}"></script>
+    <script src="{{ asset('custom/js/staff.js') }}"></script>
+    <script src="{{ asset('custom/js/main.js') }}"></script>
 @stop

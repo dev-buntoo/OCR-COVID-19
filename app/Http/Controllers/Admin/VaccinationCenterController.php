@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\City;
+use App\Models\User;
 use App\Models\VaccinationCenter;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 use Yajra\DataTables\Facades\DataTables;
 
 class VaccinationCenterController extends Controller
@@ -19,10 +22,14 @@ class VaccinationCenterController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $centers = VaccinationCenter::latest();
+            $centers = User::with(['vaccinationCenter' => function ($query) {
+                $query->with('city');
+            }])->whereHas("roles", function ($q) {
+                $q->where("name", "vaccination-center");
+            })->latest()->get();
             return DataTables::of($centers)
                 ->addColumn('action', function ($data) {
-                    $action = '<a href="javascript:void(0)" data-center-id="' . $data->vaccination_center_id . '" class="fa fa-pencil m-2 btn-link edit-center" role="button"></a><a href="javascript:void(0)"onclick="delCenter(' . $data->vaccination_center_id . ')" class="fa fa-trash m-2"></a>';
+                    $action = '<a href="javascript:void(0)" data-center-id="' . $data->vaccinationCenter->vaccination_center_id . '" class="fa fa-pencil m-2 btn-link edit-center" role="button"></a><a href="javascript:void(0)"onclick="delCenter(' . $data->vaccinationCenter->vaccination_center_id . ')" class="fa fa-trash m-2"></a>';
                     return $action;
                 })->rawColumns(['action'])
                 ->make(true);
@@ -53,10 +60,18 @@ class VaccinationCenterController extends Controller
         $request->validate([
             'name' => 'required|string|max:250',
             'city' => 'required|exists:cities,city_id',
-            'address' => 'required|string|max:250'
+            'address' => 'required|string|max:250',
+            'email' => 'required|email|max:250',
+            'password' => 'required',
         ]);
         try {
+            $user = new User;
+            $user->email = $request->email;
+            $user->password = Hash::make($request->password);
+            $user->save();
+            $user->assignRole(Role::where('name', 'vaccination-center')->first());
             $center = new VaccinationCenter();
+            $center->user_id = $user->user_id;
             $center->name = $request->name;
             $center->address = $request->address;
             $center->city_id = $request->city;
@@ -124,9 +139,14 @@ class VaccinationCenterController extends Controller
         $request->validate([
             'name' => 'required|string|max:250',
             'city' => 'required|exists:cities,city_id',
-            'address' => 'required|string|max:250'
+            'address' => 'required|string|max:250',
+            'email' => 'required|unique:users,email,' . $vaccinationCenter->user_id.',user_id',
         ]);
         try {
+            $user = User::findorFail($vaccinationCenter->user->user_id);
+            $user->email = $request->email;
+            ($request->passowrd) ? $user->password = ($request->passwrod) : '';
+            $user->save();
             $vaccinationCenter->name = $request->name;
             $vaccinationCenter->address = $request->address;
             $vaccinationCenter->city_id = $request->city;
@@ -153,6 +173,8 @@ class VaccinationCenterController extends Controller
     public function destroy(VaccinationCenter $vaccinationCenter)
     {
         try {
+            $user = User::findorFail($vaccinationCenter->user->user_id);
+            $user->delete();
             $vaccinationCenter->delete();
             return response()->json([
                 'success' => true,

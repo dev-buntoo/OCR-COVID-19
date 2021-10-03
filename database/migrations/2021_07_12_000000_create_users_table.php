@@ -19,7 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('cnic')->unique()->nullable();
             $table->string('phone')->unique()->nullable();
             $table->enum('gender', [1,2,3])->comment('1 for male, 2 for female and 3 for other');
-            $table->date('date_of_birth');
+            $table->date('date_of_birth')->nullable();
             $table->string('password');
             $table->softDeletes();
             $table->timestamps();
