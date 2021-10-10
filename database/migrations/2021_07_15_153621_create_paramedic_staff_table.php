@@ -21,7 +21,7 @@ class CreateParamedicStaffTable extends Migration
             $table->string('address');
             $table->string('city');
             $table->string('state');
-            $table->enum('added_by', [1,2,3])->comment('1 for admin, 2 for vaccination center and 3 for self registration');
+            $table->enum('added_by', [1,2])->comment('1 for admin, 2 for vaccination center');
             $table->unsignedBigInteger('added_by_id')->nullable();
             $table->softDeletes();
             $table->timestamps();
