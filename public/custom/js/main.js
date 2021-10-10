@@ -4,7 +4,7 @@ $(window).on('load', function () {
         return pattern.test(e.key)
     });
     //validating phone_no
-    $(document).on('keydown', '.number', function (e) {
+    $(document).on('keydown', '.numeric', function (e) {
         const pattern = /^[0-9]$/;
         return pattern.test(e.key)
     });

@@ -13,7 +13,7 @@ $(window).on('load', function () {
             url: "/admin/paramedic_staff"
         },
         columns: [{
-                data: "name",
+                data: "paramedic_staff.name",
                 name: "name",
                 orderable: false
             }, {
@@ -25,15 +25,15 @@ $(window).on('load', function () {
                 name: "email",
                 orderable: false
             }, {
-                data: "dob",
-                name: "dob",
+                data: "paramedic_staff.vaccination_center.name",
+                name: "vaccination_center",
                 orderable: false
             }, {
-                data: "city",
+                data: "paramedic_staff.city",
                 name: "city",
                 orderable: false
             }, {
-                data: "address",
+                data: "paramedic_staff.address",
                 name: "address",
                 orderable: false
             },
@@ -112,7 +112,7 @@ $(window).on('load', function () {
             success: function (data) {
                 if (data.success) {
                     $("#editResponse").html(data.htmlResponse);
-                    $("#updateStaffModal").modal('show');
+                    $("#editStaffModal").modal('show');
                 }
             },
             error: function (jqXHR, exception) {
