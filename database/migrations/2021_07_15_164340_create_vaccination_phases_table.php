@@ -14,8 +14,9 @@ class CreateVaccinationPhasesTable extends Migration
     public function up()
     {
         Schema::create('vaccination_phases', function (Blueprint $table) {
-            $table->bigIncrements('vaccinstion_phase_id');
+            $table->bigIncrements('vaccination_phase_id');
             $table->string('minimum_age');
+            $table->enum('status', [0, 1]);
             $table->timestamps();
         });
     }

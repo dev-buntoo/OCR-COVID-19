@@ -37,5 +37,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('cities', App\Http\Controllers\Admin\CityController::class)->except(['create', 'show']);
         Route::resource('vaccination_centers', App\Http\Controllers\Admin\VaccinationCenterController::class)->except(['create', 'show']);
         Route::resource('paramedic_staff', App\Http\Controllers\Admin\ParamedicStaffController::class)->except(['create', 'show']);
+        Route::get('vaccination_phases', [App\Http\Controllers\Admin\VaccinationPhaseController::class, 'index'])->name('vaccination_phases.index');
+        Route::patch("vaccination_phases/{vaccination_phase}", [App\Http\Controllers\Admin\VaccinationPhaseController::class, 'update'])->name('vaccination_phases.update');
     });
 });
