@@ -31,10 +31,16 @@ class LoginController extends Controller
     // protected $redirectTo = RouteServiceProvider::HOME;
     public function redirectTo()
     {
-        if(Auth::user()->hasRole('admin')){
+        if (Auth::user()->hasRole('admin')) {
             return redirect()->route('admin.home');
+        } elseif (Auth::user()->hasRole('citizen')) {
+            return redirect()->route('citizen.home');
+        } elseif (Auth::user()->hasRole('paramedic')) {
+            return redirect()->route('paramedic.home');
+        } elseif (Auth::user()->hasRole('vaccination-center')) {
+            return redirect()->route('vaccinaiton_center.home');
         }
-        dd('authenticted');
+        Auth::logout();
     }
 
     /**
@@ -55,9 +61,15 @@ class LoginController extends Controller
      */
     protected function authenticated(Request $request, $user)
     {
-        if(Auth::user()->hasRole('admin')){
+        if (Auth::user()->hasRole('admin')) {
             return redirect()->route('admin.home');
+        } elseif (Auth::user()->hasRole('citizen')) {
+            return redirect()->route('citizen.home');
+        } elseif (Auth::user()->hasRole('paramedic')) {
+            return redirect()->route('paramedic.home');
+        } elseif (Auth::user()->hasRole('vaccination-center')) {
+            return redirect()->route('vaccinaiton_center.home');
         }
-        dd('authenticted');
+        Auth::logout();
     }
 }

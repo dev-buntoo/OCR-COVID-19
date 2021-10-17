@@ -32,7 +32,6 @@ class AdminSeeder extends Seeder
             'state' => 'Punjab',
             'user_id' => $user->user_id,
         ]);
-        // dd(Role::where('name','admin')->first());
         $user->assignRole(Role::where('name','admin')->first());
     }
 }

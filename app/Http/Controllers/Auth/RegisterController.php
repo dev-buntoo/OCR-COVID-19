@@ -11,8 +11,10 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Spatie\Permission\Models\Role;
 
 class RegisterController extends Controller
 {
@@ -34,8 +36,20 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
-
+    // protected $redirectTo = RouteServiceProvider::HOME;
+    public function redirectTo()
+    {
+        if (Auth::user()->hasRole('admin')) {
+            return redirect()->route('admin.home');
+        } elseif (Auth::user()->hasRole('citizen')) {
+            return redirect()->route('citizen.home');
+        } elseif (Auth::user()->hasRole('paramedic')) {
+            return redirect()->route('paramedic.home');
+        } elseif (Auth::user()->hasRole('vaccination-center')) {
+            return redirect()->route('vaccinaiton_center.home');
+        }
+        Auth::logout();
+    }
     /**
      * Create a new controller instance.
      *
@@ -85,7 +99,7 @@ class RegisterController extends Controller
         $user->gender = $data['gender'];
         $user->date_of_birth = $data['date_of_birth'];
         $user->password = Hash::make($data['password']);
-        $user->role_id = 4;
+        // $user->role_id = 4;
         $user->save();
         $citizen = new Citizen();
         $citizen->user_id = $user->user_id;
@@ -97,14 +111,13 @@ class RegisterController extends Controller
         $citizen->state = $data['state'];
         if ($data['gender'] == 1 && $data['marital_status'] == 1 || $data['gender'] == 2 && $data['marital_status'] == 1 || $data['gender'] == 2 && $data['marital_status'] == 2) {
             $citizen->family_number_id = User::where('cnic', $data['guardian_cnic'])->first()->citizen->family_number_id;
-        }
-        else{
+        } else {
             $familyNumber = new GenerateFamilyNumber();
             $citizen->family_number_id = $familyNumber->generateFamilyNumber()->family_number_id;
         }
         $citizen->added_by = 3;
         $citizen->save();
-
+        $user->assignRole(Role::where('name', 'citizen')->first());
         return $user;
     }
 }

@@ -23,11 +23,16 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                // return redirect(RouteServiceProvider::HOME);
                 if (Auth::user()->hasRole('admin')) {
                     return redirect()->route('admin.home');
+                } elseif (Auth::user()->hasRole('citizen')) {
+                    return redirect()->route('citizen.home');
+                } elseif (Auth::user()->hasRole('paramedic')) {
+                    return redirect()->route('paramedic.home');
+                } elseif (Auth::user()->hasRole('vaccination-center')) {
+                    return redirect()->route('vaccinaiton_center.home');
                 }
-                dd('authenticted');
+                Auth::logout();
             }
         }
 
