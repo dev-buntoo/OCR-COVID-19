@@ -9,11 +9,7 @@
             <ul class="metismenu" id="menu">
 
                 <li class="{{ request()->is('citizen') ? 'active' : '' }}">
-                    <a href="{{ route('citizen.home') }}"><i class="ti-dashboard"></i> <span>Dashboard</span></a>
-                </li>
-                <li class="{{ request()->is('citizens/request_vaccination') ? 'active' : '' }}">
-                    <a href="{{ route('admin.citizens.index') }}"><i class="ti-user"></i>
-                        <span>Request Vaccination</span></a>
+                    <a href="{{ route('citizen.home') }}"><i class="ti-dashboard"></i> <span>Home</span></a>
                 </li>
             </ul>
         </nav>

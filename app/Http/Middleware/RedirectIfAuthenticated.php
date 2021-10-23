@@ -30,7 +30,7 @@ class RedirectIfAuthenticated
                 } elseif (Auth::user()->hasRole('paramedic')) {
                     return redirect()->route('paramedic.home');
                 } elseif (Auth::user()->hasRole('vaccination-center')) {
-                    return redirect()->route('vaccinaiton_center.home');
+                    return redirect()->route('vaccination_center.home');
                 }
                 Auth::logout();
             }

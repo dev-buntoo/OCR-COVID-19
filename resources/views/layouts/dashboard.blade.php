@@ -4,7 +4,12 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>OCR-COVID-19 | Admin | @yield('title')</title>
+    <title>OCR-COVID-19 |
+        @if (Auth::user()->hasRole('citizen'))
+           Citizen
+        @endif
+        | @yield('title')
+    </title>
     <link rel="shortcut icon" type="image/png" href="{{ asset('general/images/logo/logo.png') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -24,14 +29,18 @@
     <div class="page-container">
         <!-- sidebar menu area start -->
         <div class="sidebar-menu">
-            @include('layouts.partials.citizen.sideBarMenu')
+            @if (Auth::user()->hasRole('citizen'))
+                @include('layouts.partials.citizen.sideBarMenu')
+            @endif
         </div>
         <!-- sidebar menu area end -->
         <!-- main content area start -->
         <div class="main-content">
             <!-- header area start -->
             <div class="header-area">
-                @include('layouts.partials.citizen.headerArea')
+                @if (Auth::user()->hasRole('citizen'))
+                    @include('layouts.partials.citizen.headerArea')
+                @endif
             </div>
             <!-- header area end -->
             <!-- page title area start -->

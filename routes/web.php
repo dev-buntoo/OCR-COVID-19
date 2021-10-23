@@ -29,6 +29,7 @@ Route::name('general.')->group(function () {
 
 //All authenticated routes
 Route::middleware('auth')->group(function () {
+    // Admin Routes
     Route::prefix('admin/')->name('admin.')->group(function () {
         Route::get('/', [App\Http\Controllers\Admin\HomeController::class, 'index'])->name('home');
 
@@ -42,6 +43,7 @@ Route::middleware('auth')->group(function () {
     });
     Route::prefix('citizen/')->name('citizen.')->group(function () {
         Route::get('/', [App\Http\Controllers\Citizen\HomeController::class, 'index'])->name('home');
+        Route::post('/', App\Http\Controllers\Citizen\VaccinationRegistration::class)->name('vaccine_registration');
     });
     Route::prefix('vaccination-center/')->name('vaccination_center.')->group(function () {
         Route::get('/', [App\Http\Controllers\VaccinationCenter\HomeController::class, 'index'])->name('home');
