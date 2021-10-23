@@ -6,7 +6,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>OCR-COVID-19 |
         @if (Auth::user()->hasRole('citizen'))
-           Citizen
+            Citizen
         @endif
         | @yield('title')
     </title>
@@ -31,6 +31,8 @@
         <div class="sidebar-menu">
             @if (Auth::user()->hasRole('citizen'))
                 @include('layouts.partials.citizen.sideBarMenu')
+            @elseif(Auth::user()->hasRole('vaccination-center'))
+                @include('layouts.partials.vaccination-center.sideBarMenu')
             @endif
         </div>
         <!-- sidebar menu area end -->
@@ -40,6 +42,8 @@
             <div class="header-area">
                 @if (Auth::user()->hasRole('citizen'))
                     @include('layouts.partials.citizen.headerArea')
+                @elseif(Auth::user()->hasRole('vaccination-center'))
+                    @include('layouts.partials.vaccination-center.headerArea')
                 @endif
             </div>
             <!-- header area end -->
