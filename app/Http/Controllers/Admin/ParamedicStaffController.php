@@ -10,6 +10,7 @@ use App\Models\VaccinationCenter;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -77,7 +78,7 @@ class ParamedicStaffController extends Controller
         try {
             $user = new User;
             $user->email = $request->email;
-            $user->password = $request->password;
+            $user->password = Hash::make($request->password);
             $user->cnic = $request->cnic;
             $user->gender = $request->gender;
             $user->phone = $request->phone;

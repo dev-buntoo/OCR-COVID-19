@@ -47,6 +47,10 @@ Route::middleware('auth')->group(function () {
     });
     Route::prefix('vaccination-center/')->name('vaccination_center.')->group(function () {
         Route::get('/', [App\Http\Controllers\VaccinationCenter\HomeController::class, 'index'])->name('home');
+        Route::get('/citizen_verification', [App\Http\Controllers\VaccinationCenter\CitizenVerificationController::class, 'index'])->name('citizen_verificaiton');
+        Route::post('/citizen_verification', [App\Http\Controllers\VaccinationCenter\CitizenVerificationController::class, 'citizenDetail'])->name('citizen_verificaiton.get_citizen_record');
+        Route::post('/citizen_verification/verify', [App\Http\Controllers\VaccinationCenter\CitizenVerificationController::class, 'verifyCitizen']);
+
     });
     Route::prefix('paramedic/')->name('paramedic.')->group(function () {
         Route::get('/', [App\Http\Controllers\Paramedic\HomeController::class, 'index'])->name('home');

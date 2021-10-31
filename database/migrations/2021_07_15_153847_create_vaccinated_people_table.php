@@ -25,7 +25,7 @@ class CreateVaccinatedPeopleTable extends Migration
             $table->string('reaction_detail')->nullable();
             $table->timestamps();
 
-            $table->foreign('citizen_id')->references('user_id')->on('users');
+            $table->foreign('citizen_id')->references('citizen_id')->on('citizens');
             $table->foreign('vaccination_center_id')->references('vaccination_center_id')->on('vaccination_centers');
             $table->foreign('paramedic_staff_id')->references('paramedic_staff_id')->on('paramedic_staff');
         });

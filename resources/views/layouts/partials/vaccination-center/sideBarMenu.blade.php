@@ -13,7 +13,7 @@
                         <span>Dashboard</span></a>
                 </li>
                 <li class="{{ request()->is('vaccination-center/citizen_verification') ? 'active' : '' }}">
-                    <a href="{{ route('vaccination_center.home') }}"><i class="ti-user"></i>
+                    <a href="{{ route('vaccination_center.citizen_verificaiton') }}"><i class="ti-user"></i>
                         <span>Citizen Verification</span></a>
                 </li>
             </ul>
