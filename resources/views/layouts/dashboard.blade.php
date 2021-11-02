@@ -33,6 +33,8 @@
                 @include('layouts.partials.citizen.sideBarMenu')
             @elseif(Auth::user()->hasRole('vaccination-center'))
                 @include('layouts.partials.vaccination-center.sideBarMenu')
+            @elseif(Auth::user()->hasRole('paramedic'))
+                @include('layouts.partials.paramedic.sideBarMenu')
             @endif
         </div>
         <!-- sidebar menu area end -->
@@ -44,6 +46,8 @@
                     @include('layouts.partials.citizen.headerArea')
                 @elseif(Auth::user()->hasRole('vaccination-center'))
                     @include('layouts.partials.vaccination-center.headerArea')
+                @elseif(Auth::user()->hasRole('paramedic'))
+                    @include('layouts.partials.paramedic.headerArea')
                 @endif
             </div>
             <!-- header area end -->

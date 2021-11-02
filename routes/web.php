@@ -50,9 +50,17 @@ Route::middleware('auth')->group(function () {
         Route::get('/citizen_verification', [App\Http\Controllers\VaccinationCenter\CitizenVerificationController::class, 'index'])->name('citizen_verificaiton');
         Route::post('/citizen_verification', [App\Http\Controllers\VaccinationCenter\CitizenVerificationController::class, 'citizenDetail'])->name('citizen_verificaiton.get_citizen_record');
         Route::post('/citizen_verification/verify', [App\Http\Controllers\VaccinationCenter\CitizenVerificationController::class, 'verifyCitizen']);
-
     });
     Route::prefix('paramedic/')->name('paramedic.')->group(function () {
         Route::get('/', [App\Http\Controllers\Paramedic\HomeController::class, 'index'])->name('home');
+        Route::post('/verify-passcode', [App\Http\Controllers\Paramedic\HomeController::class, 'verifyPasscode']);
+        Route::post('/{passcode}/medical-record', [App\Http\Controllers\Paramedic\HomeController::class, 'verifyPasscode']);
+        Route::get('/vaccinating', [App\Http\Controllers\Paramedic\HomeController::class, 'vaccinating'])->name('vaccinating');
+        Route::post('/vaccinating', [App\Http\Controllers\Paramedic\HomeController::class, 'vaccinateCitizen'])->name('vaccinate_citizen');
+        Route::get('/{passcode}/medical-record', [App\Http\Controllers\Paramedic\HomeController::class, 'medicalRecord'])->name('add_medical_record');
+        Route::post('/{passcode}/medical-record', [App\Http\Controllers\Paramedic\HomeController::class, 'storeMedicalRecord'])->name('add_medical_record.store');
+        Route::get('/vaccinated', [App\Http\Controllers\Paramedic\HomeController::class, 'vaccinated'])->name('vaccinated');
+        Route::get('/{passcode}/reaction', [App\Http\Controllers\Paramedic\HomeController::class, 'addReaction'])->name('add_reaction');
+        Route::post('/{passcode}/reaction', [App\Http\Controllers\Paramedic\HomeController::class, 'storeReaction'])->name('add_reaction.store');
     });
 });

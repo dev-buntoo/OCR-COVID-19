@@ -17,4 +17,8 @@ class Citizen extends Model
     {
         return $this->belongsTo(User::class, 'user_id', 'user_id');
     }
+    public function medicalRecord()
+    {
+        return $this->hasMany(MedicalRecord::class, 'citizen_id', 'citizen_id');
+    }
 }

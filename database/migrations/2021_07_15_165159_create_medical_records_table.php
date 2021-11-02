@@ -17,7 +17,6 @@ class CreateMedicalRecordsTable extends Migration
             $table->bigIncrements('medical_record_id');
             $table->unsignedBigInteger('citizen_id');
             $table->string('disease_name');
-            $table->year('diagnosed_in');
             $table->timestamps();
 
             $table->foreign('citizen_id')->references('user_id')->on('users');

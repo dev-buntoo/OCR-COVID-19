@@ -42,7 +42,7 @@ class RegisterController extends Controller
         if (Auth::user()->hasRole('admin')) {
             return redirect()->route('admin.home');
         } elseif (Auth::user()->hasRole('citizen')) {
-            return redirect()->route('citizen.home');
+            return 'citizen';
         } elseif (Auth::user()->hasRole('paramedic')) {
             return redirect()->route('paramedic.home');
         } elseif (Auth::user()->hasRole('vaccination-center')) {
