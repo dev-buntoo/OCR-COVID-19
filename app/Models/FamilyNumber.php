@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class FamilyNumber extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
     /**
      * These are mass assignable
      */

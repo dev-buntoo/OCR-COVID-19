@@ -21,4 +21,8 @@ class Citizen extends Model
     {
         return $this->hasMany(MedicalRecord::class, 'citizen_id', 'citizen_id');
     }
+    public function familyNumber()
+    {
+        return $this->hasOne(FamilyNumber::class, 'family_number_id', 'family_number_id');
+    }
 }
