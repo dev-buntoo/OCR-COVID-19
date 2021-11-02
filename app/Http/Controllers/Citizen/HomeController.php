@@ -20,7 +20,6 @@ class HomeController extends Controller
         $message = null;
         try {
             $citizenRecord = Citizen::where('citizen_id', Auth::user()->citizen->citizen_id)->where('passcode', '<>', null)->first();
-            // dd($citizenRecord);
             if (!$citizenRecord) {
                 $citizenAge = Carbon::parse(Auth::user()->date_of_birth)->age;
                 $activePhase = VaccinationPhase::where('status', '1')->orderBy('vaccination_phase_id', 'desc')->first();
@@ -32,10 +31,19 @@ class HomeController extends Controller
                 if (!$eligible)
                     throw new Exception("You are not eligible for the vaccination. Citizens of age '$activePhase->minimum_age' and above are eligible for vaccination only. Thank you!");
             } else {
-                $alreadyRegistered = true;
-                $eligible = false;
-                $text = "Respected Citizen! You are resgistered for vaccination and your secret passcode is '$citizenRecord->passcode'. Please visit nearest vaccination center for vaccination. Thank You. ";
-                throw new Exception($text);
+                $vaccinated = VaccinatedPerson::where('citizen_id', $citizenRecord->citizen_id)->first();
+                if ($vaccinated) {
+                    if ($vaccinated->is_vaccinated) {
+                        throw new Exception('You Are Vaccinated');
+                    } else {
+                        throw new Exception('You Are Being Vaccinated');
+                    }
+                } else {
+                    $alreadyRegistered = true;
+                    $eligible = false;
+                    $text = "Respected Citizen! You are resgistered for vaccination and your secret passcode is '$citizenRecord->passcode'. Please visit nearest vaccination center for vaccination. Thank You. ";
+                    throw new Exception($text);
+                }
             }
         } catch (Exception $exception) {
             $eligible = false;
